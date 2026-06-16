@@ -6,6 +6,8 @@ MCP server kết nối Claude với **Google Sheets** và **Google Docs**, dùng
 
 Yêu cầu: **Node.js >= 18**, Claude Desktop hoặc Claude Code CLI.
 
+`cd` vào project FE (VD: `mbfs-cmc-dtqg-frontend`) trước khi chạy, để script cài luôn SKILL vào project:
+
 ```powershell
 irm https://raw.githubusercontent.com/Sotatek-DanhHuynh/mcp-google-sotatek/master/setup.ps1 | iex
 ```
@@ -16,6 +18,7 @@ Script sẽ tự động:
 3. Cài dependencies (`npm install`)
 4. Tạo file rỗng `%LOCALAPPDATA%\mcp-google-sotatek\credentials.json`, mở Notepad để bạn paste nội dung JSON key (JSON key là chìa khóa để sử dụng MCP)
 5. Validate JSON, ghi config vào Claude Desktop (`claude_desktop_config.json`) và Claude Code CLI (nếu có)
+6. Cài SKILL `daily-report-sync` vào `.claude/skills/daily-report-sync/SKILL.md` của project hiện tại (nếu phát hiện đang ở trong 1 project — có `.git` hoặc `package.json`)
 
 Sau khi setup xong, **restart Claude Desktop/CLI** để load MCP.
 
@@ -52,6 +55,12 @@ https://docs.google.com/document/d/DOCUMENT_ID/edit
 | `read_doc` | Đọc toàn bộ nội dung document (plain text) |
 | `append_doc` | Chèn text vào cuối document |
 | `replace_doc_text` | Tìm và thay thế text trong document |
+
+## Skills
+
+| Skill | Mô tả |
+|---|---|
+| `daily-report-sync` | Đọc commit git hôm nay của user hiện tại, tóm tắt (ưu tiên mã ticket Jira), tự update vào phần "1. What did you do yesterday?" trong cell Daily Report tương ứng — giữ nguyên Plan/Blocker đã có. Tự cài vào `.claude/skills/` của project FE khi chạy `setup.ps1` trong project đó. |
 
 ## Thiết lập Service Account (admin làm 1 lần)
 

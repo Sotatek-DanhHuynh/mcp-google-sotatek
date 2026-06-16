@@ -1,0 +1,13 @@
+{
+  "name": "mcp-google-sotatek",
+  "version": "1.0.0",
+  "description": "MCP server for Google Sheets & Docs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "googleapis": "^140.0.0"
+  }
+}

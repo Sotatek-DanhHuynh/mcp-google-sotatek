@@ -6,21 +6,42 @@ MCP server kết nối Claude với **Google Sheets** và **Google Docs**, dùng
 
 Yêu cầu: **Node.js >= 18**, Claude Desktop hoặc Claude Code CLI.
 
-`cd` vào project FE (VD: `mbfs-cmc-dtqg-frontend`) trước khi chạy, để script cài luôn SKILL vào project:
+`cd` vào project FE (VD: `mbfs-cmc-dtqg-frontend`) trước khi chạy, để script cài luôn SKILL vào project.
 
+**Windows (PowerShell):**
 ```powershell
 irm https://raw.githubusercontent.com/Sotatek-DanhHuynh/mcp-google-sotatek/master/setup.ps1 | iex
+```
+
+**macOS / Linux (bash):**
+```bash
+curl -fsSL https://raw.githubusercontent.com/Sotatek-DanhHuynh/mcp-google-sotatek/master/setup.sh | bash
 ```
 
 Script sẽ tự động:
 1. Kiểm tra Node.js
 2. Download `index.js` + `package.json` về `%APPDATA%\mcp-google-sotatek`
 3. Cài dependencies (`npm install`)
-4. Tạo file rỗng `%LOCALAPPDATA%\mcp-google-sotatek\credentials.json`, mở Notepad để bạn paste nội dung JSON key (JSON key là chìa khóa để sử dụng MCP)
+4. Tạo file rỗng `credentials.json` (Windows: `%LOCALAPPDATA%\mcp-google-sotatek\`, Mac/Linux: `~/.mcp-google-sotatek/`), mở editor (Notepad/`$EDITOR`) để bạn paste nội dung JSON key (JSON key là chìa khóa để sử dụng MCP)
 5. Validate JSON, ghi config vào Claude Desktop (`claude_desktop_config.json`) và Claude Code CLI (nếu có)
 6. Cài SKILL `daily-report-sync` vào `.claude/skills/daily-report-sync/SKILL.md` của project hiện tại (nếu phát hiện đang ở trong 1 project — có `.git` hoặc `package.json`)
 
 Sau khi setup xong, **restart Claude Desktop/CLI** để load MCP.
+
+### Paste JSON key trên macOS / Linux (dùng `nano`)
+
+Mặc định script mở file credentials bằng `nano` ngay trong terminal:
+
+1. Paste nội dung JSON:
+   - macOS Terminal: `Cmd+V`
+   - Linux/Ubuntu Terminal: `Ctrl+Shift+V` (hoặc click phải → Paste)
+2. Lưu file: `Ctrl+O` → Enter để xác nhận tên file
+3. Thoát `nano`: `Ctrl+X`
+
+Muốn dùng editor khác (VD: VS Code) thay vì `nano`, set biến `EDITOR` trước khi chạy script:
+```bash
+EDITOR="code -w" curl -fsSL https://raw.githubusercontent.com/Sotatek-DanhHuynh/mcp-google-sotatek/master/setup.sh | bash
+```
 
 ## Trước khi dùng — Share quyền truy cập
 

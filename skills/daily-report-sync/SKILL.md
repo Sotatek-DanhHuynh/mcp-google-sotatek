@@ -49,10 +49,15 @@ Join all lines into a single multi-line text block (one commit per line).
    value matches (case-insensitive) the name from Step 1.
    - If no matching row is found → ask the user to confirm the exact display name used in the sheet.
      Never guess or create a new row.
-2. Read `Daily Report!A1:<last column>1` (header row) to find the column whose value is today's date
-   in `MM/DD/YYYY` format.
-   - If no column for today is found → tell the user (the sheet hasn't been extended to the current
-     date yet) and stop. Never add a new column automatically.
+2. Read `Daily Report!A1:<last column>1` (header row) to find the column whose value is
+   **tomorrow's date** (today + 1 day) in `MM/DD/YYYY` format.
+   - Rationale: commits done today are written under "What did you do yesterday?" which is read
+     the next morning — so the correct column is tomorrow's, not today's.
+   - **Weekend rule:** if tomorrow falls on Saturday (day 6) or Sunday (day 0), advance to the
+     next Monday instead (skip 1 day for Sunday, skip 2 days for Saturday). Columns for weekends
+     are left empty/grey in the sheet and must never be written to.
+   - If no column for the target date is found → tell the user (the sheet hasn't been extended yet)
+     and stop. Never add a new column automatically.
 3. The target cell = `<date column><member row>`, e.g. `Daily Report!BN16`.
 
 ## Step 5: Read the current cell content, replace only section 1
